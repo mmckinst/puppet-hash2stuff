@@ -1,0 +1,44 @@
+{
+  "name": "mmckinst-hash2stuff",
+  "version": "0.1.0",
+  "author": "mmckinst",
+  "summary": "Convert a puppet hash to YAML, JSON, INI file, or key-value.",
+  "license": "Apache-2.0",
+  "source": "https://github.com/mmckinst/puppet-hash2stuff",
+  "project_page": "https://github.com/mmckinst/puppet-hash2stuff",
+  "issues_url": "https://github.com/mmckinst/puppet-hash2stuff/issues",
+  "operatingsystem_support": [
+    {
+      "operatingsystem": "RedHat",
+      "operatingsystemrelease": [
+        "5",
+        "6",
+        "7"
+      ]
+    },
+    {
+      "operatingsystem": "CentOS",
+      "operatingsystemrelease": [
+        "5",
+        "6",
+        "7"
+      ]
+    }
+  ],
+  "requirements": [
+    {
+      "name": "puppet",
+      "version_requirement": ">= 3.2.0 < 5.0.0"
+    },
+    {
+      "name": "pe",
+      "version_requirement": ">= 3.2.0 < 2015.3.0"
+    }
+  ],
+  "dependencies": [
+    {
+      "name": "puppetlabs-stdlib",
+      "version_requirement": ">= 2.0.0 < 5.0.0"
+    }
+  ]
+}
