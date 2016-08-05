@@ -108,11 +108,10 @@ you want to manage bits and pieces of an JSON file, you want
 [augeas](https://docs.puppet.com/guides/augeas.html) with the
 [JSON lens](https://github.com/hercules-team/augeas/blob/master/lenses/json.aug).
 
-
 For example:
 
   ~~~
-    $config = {
+  $config = {
     'domain' => 'example.com',
     'mysql'  => {
       'hosts' => ['192.0.2.2', '192.0.2.4'],
@@ -121,6 +120,7 @@ For example:
     },
     'awesome' => true,
   }
+
   file {'/etc/config.json':
     ensure  => 'present',
     content => hash2json($config)
@@ -143,6 +143,52 @@ will produce a file at /etc/config.json that looks like:
     "awesome": true
   }
   ~~~
+
+### `hash2yaml`
+
+Converts a hash into a YAML string. *Type*: rvalue.
+
+It is used when you want to overwrite an entire file with a hash of settings. If
+you want to manage bits and pieces of an YAML file, you want
+[augeas](https://docs.puppet.com/guides/augeas.html) with the
+[YAML lens](https://github.com/hercules-team/augeas/blob/master/lenses/yaml.aug).
+
+For example:
+
+  ~~~
+  $config = {
+    'domain' => 'example.com',
+    'mysql'  => {
+      'hosts' => ['192.0.2.2', '192.0.2.4'],
+      'user'  => 'root',
+      'pass'  => 'setec-astronomy',
+    },
+    'awesome' => true,
+  }
+
+  file {'/etc/config.yaml':
+    ensure  => 'present',
+    content => hash2yaml($config)
+  }
+  ~~~
+
+will produce a file at /etc/config.yaml that looks like:
+
+  ~~~
+  ---
+  domain: example.com
+  mysql:
+    hosts:
+    - 192.0.2.2
+    - 192.0.2.4
+    user: root
+    pass: setec-astronomy
+  awesome: true
+  ~~~
+
+Puppet 3.x renders YAML differently than puppet 4.x (different whitespacing,
+quotes around some strings, etc), although they look slightly different they are
+the same when parsed by a YAML library.
 
 Copyright
 ---
