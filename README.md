@@ -1,3 +1,5 @@
+[![Build Status](https://travis-ci.org/mmckinst/puppet-hash2stuff.svg?branch=master)](https://travis-ci.org/mmckinst/puppet-hash2stuff)
+
 ## Usage
 
 ### `hash2ini`
