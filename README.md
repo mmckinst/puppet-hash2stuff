@@ -99,6 +99,170 @@ will produce a file at /etc/php.ini that looks like:
   date.timezone = "America/Detroit"
   ~~~
 
+### `hash2json`
+
+Converts a hash into a JSON string. *Type*: rvalue.
+
+It is used when you want to overwrite an entire file with a hash of settings. If
+you want to manage bits and pieces of an JSON file, you want
+[augeas](https://docs.puppet.com/guides/augeas.html) with the
+[JSON lens](https://github.com/hercules-team/augeas/blob/master/lenses/json.aug).
+
+For example:
+
+  ~~~
+  $config = {
+    'domain' => 'example.com',
+    'mysql'  => {
+      'hosts' => ['192.0.2.2', '192.0.2.4'],
+      'user'  => 'root',
+      'pass'  => 'setec-astronomy',
+    },
+    'awesome' => true,
+  }
+
+  file {'/etc/config.json':
+    ensure  => 'present',
+    content => hash2json($config)
+  }
+  ~~~
+
+will produce a file at /etc/config.json that looks like:
+
+  ~~~
+  {
+    "domain": "example.com",
+    "mysql": {
+      "hosts": [
+        "192.0.2.2",
+        "192.0.2.4"
+      ],
+      "user": "root",
+      "pass": "setec-astronomy"
+    },
+    "awesome": true
+  }
+  ~~~
+
+### `hash2kv`
+
+Converts a hash into an key-value/shellvar string. *Type*: rvalue.
+
+It is used when you want to overwrite an entire file with a hash of settings. If
+you want to manage bits and pieces of an key-value/shellvar style file, you
+probably want
+[herculesteam/augeasproviders_shellvar](https://forge.puppet.com/herculesteam/augeasproviders_shellvar).
+
+#### Parameters
+
+It accepts the following optional parameters passed to it in a hash as the second argument:
+
+* `header`: String you want at the top of the file saying it is controlled by puppet. Default: '# THIS FILE IS CONTROLLED BY PUPPET'
+* `key_val_separator`: String to use between setting name and value (e.g., to determine whether the separator includes whitespace). Default: '='.
+* `quote_char`: Character or string to quote the entire value of the setting. Default: '"'
+
+For example:
+
+  ~~~
+  $config = {
+    'HOSTNAME'     => 'foo.example.com',
+    'RSYNC_IONICE' => '3',
+    'PORTS'        => '53 123 80',
+  }
+
+  file {'/etc/config.sh':
+    ensure  => 'present',
+    content => hash2kv($config)
+  }
+  ~~~
+
+will produce a file at /etc/config.sh that looks like:
+
+  ~~~
+  # THIS FILE IS CONTROLLED BY PUPPET
+
+  HOSTNAME="foo.example.com"
+  RSYNC_IONICE="3"
+  PORTS="53 123 80"
+  ~~~
+
+Or you can specify custom settings:
+
+  ~~~
+  settings = {
+    'header'            => '; THIS FILE IS CONTROLLED BY PUPPET',
+    'key_val_separator' => ': ',
+    'quote_char'        => '',
+  }
+
+  $config = {
+    'HOSTNAME'     => 'foo.example.com',
+    'RSYNC_IONICE' => '3',
+    'PORTS'        => '53 123 80',
+  }
+
+  file {'/etc/config.kv':
+    ensure  => 'present',
+    content => hash2kv($php_config, $settings)
+  }
+  ~~~
+
+will produce a file at /etc/config.kv that looks like:
+
+  ~~~
+  ; THIS FILE IS CONTROLLED BY /dev/random
+
+  HOSTNAME: foo.example.com
+  RSYNC_IONICE: 3
+  PORTS: 53 123 80
+  ~~~
+
+### `hash2yaml`
+
+Converts a hash into a YAML string. *Type*: rvalue.
+
+It is used when you want to overwrite an entire file with a hash of settings. If
+you want to manage bits and pieces of an YAML file, you want
+[augeas](https://docs.puppet.com/guides/augeas.html) with the
+[YAML lens](https://github.com/hercules-team/augeas/blob/master/lenses/yaml.aug).
+
+For example:
+
+  ~~~
+  $config = {
+    'domain' => 'example.com',
+    'mysql'  => {
+      'hosts' => ['192.0.2.2', '192.0.2.4'],
+      'user'  => 'root',
+      'pass'  => 'setec-astronomy',
+    },
+    'awesome' => true,
+  }
+
+  file {'/etc/config.yaml':
+    ensure  => 'present',
+    content => hash2yaml($config)
+  }
+  ~~~
+
+will produce a file at /etc/config.yaml that looks like:
+
+  ~~~
+  ---
+  domain: example.com
+  mysql:
+    hosts:
+    - 192.0.2.2
+    - 192.0.2.4
+    user: root
+    pass: setec-astronomy
+  awesome: true
+  ~~~
+
+Puppet 3.x renders YAML differently than puppet 4.x (different whitespacing,
+quotes around some strings, etc), although they look slightly different they are
+the same when parsed by a YAML library.
+
 Copyright
 ---
 
