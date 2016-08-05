@@ -99,6 +99,51 @@ will produce a file at /etc/php.ini that looks like:
   date.timezone = "America/Detroit"
   ~~~
 
+### `hash2json`
+
+Converts a hash into a JSON string. *Type*: rvalue.
+
+It is used when you want to overwrite an entire file with a hash of settings. If
+you want to manage bits and pieces of an JSON file, you want
+[augeas](https://docs.puppet.com/guides/augeas.html) with the
+[JSON lens](https://github.com/hercules-team/augeas/blob/master/lenses/json.aug).
+
+
+For example:
+
+  ~~~
+    $config = {
+    'domain' => 'example.com',
+    'mysql'  => {
+      'hosts' => ['192.0.2.2', '192.0.2.4'],
+      'user'  => 'root',
+      'pass'  => 'setec-astronomy',
+    },
+    'awesome' => true,
+  }
+  file {'/etc/config.json':
+    ensure  => 'present',
+    content => hash2json($config)
+  }
+  ~~~
+
+will produce a file at /etc/config.json that looks like:
+
+  ~~~
+  {
+    "domain": "example.com",
+    "mysql": {
+      "hosts": [
+        "192.0.2.2",
+        "192.0.2.4"
+      ],
+      "user": "root",
+      "pass": "setec-astronomy"
+    },
+    "awesome": true
+  }
+  ~~~
+
 Copyright
 ---
 
