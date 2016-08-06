@@ -7,6 +7,16 @@
   "source": "https://github.com/mmckinst/puppet-hash2stuff",
   "project_page": "https://github.com/mmckinst/puppet-hash2stuff",
   "issues_url": "https://github.com/mmckinst/puppet-hash2stuff/issues",
+  "tags": [
+    "hash",
+    "json",
+    "yaml",
+    "shellvar",
+    "ini",
+    "inifile",
+    "kv",
+    "key-value"
+  ],
   "operatingsystem_support": [
     {
       "operatingsystem": "RedHat",
