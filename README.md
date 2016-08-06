@@ -1,5 +1,14 @@
 [![Build Status](https://travis-ci.org/mmckinst/puppet-hash2stuff.svg?branch=master)](https://travis-ci.org/mmckinst/puppet-hash2stuff)
 
+## Overview
+
+This module will convert puppet hashes in to different formats commonly used for
+config files. It is used to overwrite an entire config file with one from
+puppet, if you are trying to manage bits and pieces of a config file, you want
+to use something like
+[puppetlabs/inifile](https://github.com/puppetlabs/puppetlabs-inifile) or
+[augeas](https://docs.puppet.com/guides/augeas.html).
+
 ## Usage
 
 ### `hash2ini`
