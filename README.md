@@ -32,81 +32,81 @@ It accepts the following optional parameters passed to it in a hash as the secon
 
 For example:
 
-  ~~~
-  $config = {
-    'main' => {
-      'logging' => 'INFO',
-      'limit'   => 314,
-      'awesome' => true,
-    },
-    'dev' => {
-      'logging'      => 'DEBUG',
-      'log_location' => '/var/log/dev.log',
-    }
+~~~
+$config = {
+  'main' => {
+    'logging' => 'INFO',
+    'limit'   => 314,
+    'awesome' => true,
+  },
+  'dev' => {
+    'logging'      => 'DEBUG',
+    'log_location' => '/var/log/dev.log',
   }
-  
-  file {'/etc/config.ini':
-    ensure  => 'present',
-    content => hash2ini($config)
-  }
-  ~~~
+}
+
+file {'/etc/config.ini':
+  ensure  => 'present',
+  content => hash2ini($config)
+}
+~~~
 
 will produce a file at /etc/config.ini that looks like:
 
-  ~~~
-  # THIS FILE IS CONTROLLED BY PUPPET
-  
-  [main]
-  logging="INFO"
-  limit="314"
-  awesome="true"
-  
-  [dev]
-  logging="DEBUG"
-  log_location="/var/log/dev.log"
-  ~~~
+~~~
+# THIS FILE IS CONTROLLED BY PUPPET
+
+[main]
+logging="INFO"
+limit="314"
+awesome="true"
+
+[dev]
+logging="DEBUG"
+log_location="/var/log/dev.log"
+~~~
 
 Or you can specify custom settings:
 
-  ~~~
-  settings = {
-    'header'            => '; THIS FILE IS CONTROLLED BY PUPPET',
-    'key_val_separator' => ' = ',
-    'quote_char'        => '',
+~~~
+$settings = {
+  'header'            => '; THIS FILE IS CONTROLLED BY PUPPET',
+  'key_val_separator' => ' = ',
+  'quote_char'        => '',
+}
+
+$php_config = {
+  'PHP' => {
+    'engine'				    => 'On',
+    'realpath_cache_size'	    => '32k',
+    'zlib.output_compression' => 'On',
+    'expose_php'              => 'Off',
+  },
+  'Date' => {
+    'date.timezone'           => '"America/Detroit"',
   }
-  
-  $php_config = {
-    'PHP' => {
-      'engine'				    => 'On',
-      'realpath_cache_size'	    => '32k',
-      'zlib.output_compression' => 'On',
-      'expose_php'              => 'Off',
-    },
-    'Date' => {
-      'date.timezone'           => '"America/Detroit"',
-    }
-  }
-  
-  file {'/etc/php.ini':
-    ensure  => 'present',
-    content => hash2ini($php_config, $settings)
-  }
-  ~~~
+}
+
+file {'/etc/php.ini':
+  ensure  => 'present',
+  content => hash2ini($php_config, $settings)
+}
+~~~
 
 will produce a file at /etc/php.ini that looks like:
 
-  ~~~
-  ; THIS FILE IS CONTROLLED BY PUPPET
-  
-  [PHP]
-  engine = On
-  realpath_cache_size = 32k
-  zlib.output_compression = On
-  expose_php = Off
-  
-  [Date]
-  date.timezone = "America/Detroit"
-  ~~~
+~~~
+; THIS FILE IS CONTROLLED BY PUPPET
+
+[PHP]
+engine = On
+realpath_cache_size = 32k
+zlib.output_compression = On
+expose_php = Off
+
+[Date]
+date.timezone = "America/Detroit"
+~~~
 
 ### `hash2json`
 
@@ -119,39 +119,39 @@ you want to manage bits and pieces of an JSON file, you want
 
 For example:
 
-  ~~~
-  $config = {
-    'domain' => 'example.com',
-    'mysql'  => {
-      'hosts' => ['192.0.2.2', '192.0.2.4'],
-      'user'  => 'root',
-      'pass'  => 'setec-astronomy',
-    },
-    'awesome' => true,
-  }
+~~~
+$config = {
+  'domain' => 'example.com',
+  'mysql'  => {
+    'hosts' => ['192.0.2.2', '192.0.2.4'],
+    'user'  => 'root',
+    'pass'  => 'setec-astronomy',
+  },
+  'awesome' => true,
+}
 
-  file {'/etc/config.json':
-    ensure  => 'present',
-    content => hash2json($config)
-  }
-  ~~~
+file {'/etc/config.json':
+  ensure  => 'present',
+  content => hash2json($config)
+}
+~~~
 
 will produce a file at /etc/config.json that looks like:
 
-  ~~~
-  {
-    "domain": "example.com",
-    "mysql": {
-      "hosts": [
-        "192.0.2.2",
-        "192.0.2.4"
-      ],
-      "user": "root",
-      "pass": "setec-astronomy"
-    },
-    "awesome": true
-  }
-  ~~~
+~~~
+{
+  "domain": "example.com",
+  "mysql": {
+    "hosts": [
+      "192.0.2.2",
+      "192.0.2.4"
+    ],
+    "user": "root",
+    "pass": "setec-astronomy"
+  },
+  "awesome": true
+}
+~~~
 
 ### `hash2kv`
 
@@ -172,59 +172,59 @@ It accepts the following optional parameters passed to it in a hash as the secon
 
 For example:
 
-  ~~~
-  $config = {
-    'HOSTNAME'     => 'foo.example.com',
-    'RSYNC_IONICE' => '3',
-    'PORTS'        => '53 123 80',
-  }
+~~~
+$config = {
+  'HOSTNAME'     => 'foo.example.com',
+  'RSYNC_IONICE' => '3',
+  'PORTS'        => '53 123 80',
+}
 
-  file {'/etc/config.sh':
-    ensure  => 'present',
-    content => hash2kv($config)
-  }
-  ~~~
+file {'/etc/config.sh':
+  ensure  => 'present',
+  content => hash2kv($config)
+}
+~~~
 
 will produce a file at /etc/config.sh that looks like:
 
-  ~~~
-  # THIS FILE IS CONTROLLED BY PUPPET
+~~~
+# THIS FILE IS CONTROLLED BY PUPPET
 
-  HOSTNAME="foo.example.com"
-  RSYNC_IONICE="3"
-  PORTS="53 123 80"
-  ~~~
+HOSTNAME="foo.example.com"
+RSYNC_IONICE="3"
+PORTS="53 123 80"
+~~~
 
 Or you can specify custom settings:
 
-  ~~~
-  settings = {
-    'header'            => '; THIS FILE IS CONTROLLED BY PUPPET',
-    'key_val_separator' => ': ',
-    'quote_char'        => '',
-  }
+~~~
+$settings = {
+  'header'            => '; THIS FILE IS CONTROLLED BY PUPPET',
+  'key_val_separator' => ': ',
+  'quote_char'        => '',
+}
 
-  $config = {
-    'HOSTNAME'     => 'foo.example.com',
-    'RSYNC_IONICE' => '3',
-    'PORTS'        => '53 123 80',
-  }
+$config = {
+  'HOSTNAME'     => 'foo.example.com',
+  'RSYNC_IONICE' => '3',
+  'PORTS'        => '53 123 80',
+}
 
-  file {'/etc/config.kv':
-    ensure  => 'present',
-    content => hash2kv($php_config, $settings)
-  }
-  ~~~
+file {'/etc/config.kv':
+  ensure  => 'present',
+  content => hash2kv($php_config, $settings)
+}
+~~~
 
 will produce a file at /etc/config.kv that looks like:
 
-  ~~~
-  ; THIS FILE IS CONTROLLED BY /dev/random
+~~~
+; THIS FILE IS CONTROLLED BY /dev/random
 
-  HOSTNAME: foo.example.com
-  RSYNC_IONICE: 3
-  PORTS: 53 123 80
-  ~~~
+HOSTNAME: foo.example.com
+RSYNC_IONICE: 3
+PORTS: 53 123 80
+~~~
 
 ### `hash2yaml`
 
@@ -237,36 +237,36 @@ you want to manage bits and pieces of an YAML file, you want
 
 For example:
 
-  ~~~
-  $config = {
-    'domain' => 'example.com',
-    'mysql'  => {
-      'hosts' => ['192.0.2.2', '192.0.2.4'],
-      'user'  => 'root',
-      'pass'  => 'setec-astronomy',
-    },
-    'awesome' => true,
-  }
+~~~
+$config = {
+  'domain' => 'example.com',
+  'mysql'  => {
+    'hosts' => ['192.0.2.2', '192.0.2.4'],
+    'user'  => 'root',
+    'pass'  => 'setec-astronomy',
+  },
+  'awesome' => true,
+}
 
-  file {'/etc/config.yaml':
-    ensure  => 'present',
-    content => hash2yaml($config)
-  }
-  ~~~
+file {'/etc/config.yaml':
+  ensure  => 'present',
+  content => hash2yaml($config)
+}
+~~~
 
 will produce a file at /etc/config.yaml that looks like:
 
-  ~~~
-  ---
-  domain: example.com
-  mysql:
-    hosts:
-    - 192.0.2.2
-    - 192.0.2.4
-    user: root
-    pass: setec-astronomy
-  awesome: true
-  ~~~
+~~~
+---
+domain: example.com
+mysql:
+  hosts:
+  - 192.0.2.2
+  - 192.0.2.4
+  user: root
+  pass: setec-astronomy
+awesome: true
+~~~
 
 Puppet 3.x renders YAML differently than puppet 4.x (different whitespacing,
 quotes around some strings, etc), although they look slightly different they are
