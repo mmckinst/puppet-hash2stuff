@@ -1,5 +1,5 @@
 [![Build Status](https://travis-ci.org/mmckinst/puppet-hash2stuff.svg?branch=master)](https://travis-ci.org/mmckinst/puppet-hash2stuff)
-[![Puppet Forge](https://img.shields.io/puppetforge/v/mmckinst/hash2stuff.svg?maxAge=2592000)]()
+[![Puppet Forge](https://img.shields.io/puppetforge/v/mmckinst/hash2stuff.svg?maxAge=2592000)](https://forge.puppet.com/mmckinst/hash2stuff)
 
 ## Overview
 
