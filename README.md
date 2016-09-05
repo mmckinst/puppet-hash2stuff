@@ -1,5 +1,5 @@
 [![Build Status](https://travis-ci.org/mmckinst/puppet-hash2stuff.svg?branch=master)](https://travis-ci.org/mmckinst/puppet-hash2stuff)
-[![Puppet Forge](https://img.shields.io/puppetforge/v/mmckinst/hash2stuff.svg?maxAge=2592000)]()
+[![Puppet Forge](https://img.shields.io/puppetforge/v/mmckinst/hash2stuff.svg?maxAge=2592000)](https://forge.puppet.com/mmckinst/hash2stuff)
 
 ## Overview
 
@@ -33,7 +33,7 @@ It accepts the following optional parameters passed to it in a hash as the secon
 
 For example:
 
-~~~
+```puppet
 $config = {
   'main' => {
     'logging' => 'INFO',
@@ -50,11 +50,11 @@ file {'/etc/config.ini':
   ensure  => 'present',
   content => hash2ini($config)
 }
-~~~
+```
 
 will produce a file at /etc/config.ini that looks like:
 
-~~~
+```ini
 # THIS FILE IS CONTROLLED BY PUPPET
 
 [main]
@@ -65,11 +65,11 @@ awesome="true"
 [dev]
 logging="DEBUG"
 log_location="/var/log/dev.log"
-~~~
+```
 
 Or you can specify custom settings:
 
-~~~
+```puppet
 $settings = {
   'header'            => '; THIS FILE IS CONTROLLED BY PUPPET',
   'key_val_separator' => ' = ',
@@ -78,8 +78,8 @@ $settings = {
 
 $php_config = {
   'PHP' => {
-    'engine'				    => 'On',
-    'realpath_cache_size'	    => '32k',
+    'engine'                  => 'On',
+    'realpath_cache_size'     => '32k',
     'zlib.output_compression' => 'On',
     'expose_php'              => 'Off',
   },
@@ -92,11 +92,11 @@ file {'/etc/php.ini':
   ensure  => 'present',
   content => hash2ini($php_config, $settings)
 }
-~~~
+```
 
 will produce a file at /etc/php.ini that looks like:
 
-~~~
+```ini
 ; THIS FILE IS CONTROLLED BY PUPPET
 
 [PHP]
@@ -107,7 +107,7 @@ expose_php = Off
 
 [Date]
 date.timezone = "America/Detroit"
-~~~
+```
 
 ### `hash2json`
 
@@ -120,7 +120,7 @@ you want to manage bits and pieces of an JSON file, you want
 
 For example:
 
-~~~
+```puppet
 $config = {
   'domain' => 'example.com',
   'mysql'  => {
@@ -135,11 +135,11 @@ file {'/etc/config.json':
   ensure  => 'present',
   content => hash2json($config)
 }
-~~~
+```
 
 will produce a file at /etc/config.json that looks like:
 
-~~~
+```json
 {
   "domain": "example.com",
   "mysql": {
@@ -152,7 +152,7 @@ will produce a file at /etc/config.json that looks like:
   },
   "awesome": true
 }
-~~~
+```
 
 ### `hash2kv`
 
@@ -173,7 +173,7 @@ It accepts the following optional parameters passed to it in a hash as the secon
 
 For example:
 
-~~~
+```puppet
 $config = {
   'HOSTNAME'     => 'foo.example.com',
   'RSYNC_IONICE' => '3',
@@ -184,21 +184,21 @@ file {'/etc/config.sh':
   ensure  => 'present',
   content => hash2kv($config)
 }
-~~~
+```
 
 will produce a file at /etc/config.sh that looks like:
 
-~~~
+```shell
 # THIS FILE IS CONTROLLED BY PUPPET
 
 HOSTNAME="foo.example.com"
 RSYNC_IONICE="3"
 PORTS="53 123 80"
-~~~
+```
 
 Or you can specify custom settings:
 
-~~~
+```puppet
 $settings = {
   'header'            => '; THIS FILE IS CONTROLLED BY PUPPET',
   'key_val_separator' => ': ',
@@ -215,17 +215,17 @@ file {'/etc/config.kv':
   ensure  => 'present',
   content => hash2kv($php_config, $settings)
 }
-~~~
+```
 
 will produce a file at /etc/config.kv that looks like:
 
-~~~
+```
 ; THIS FILE IS CONTROLLED BY /dev/random
 
 HOSTNAME: foo.example.com
 RSYNC_IONICE: 3
 PORTS: 53 123 80
-~~~
+```
 
 ### `hash2yaml`
 
@@ -238,7 +238,7 @@ you want to manage bits and pieces of an YAML file, you want
 
 For example:
 
-~~~
+```puppet
 $config = {
   'domain' => 'example.com',
   'mysql'  => {
@@ -253,11 +253,11 @@ file {'/etc/config.yaml':
   ensure  => 'present',
   content => hash2yaml($config)
 }
-~~~
+```
 
 will produce a file at /etc/config.yaml that looks like:
 
-~~~
+```yaml
 ---
 domain: example.com
 mysql:
@@ -267,7 +267,7 @@ mysql:
   user: root
   pass: setec-astronomy
 awesome: true
-~~~
+```
 
 Puppet 3.x renders YAML differently than puppet 4.x (different whitespacing,
 quotes around some strings, etc), although they look slightly different they are
