@@ -6,12 +6,7 @@ group :tests do
   gem 'puppet-lint-unquoted_string-check'
   gem 'puppet-lint-empty_string-check'
   gem 'puppet-lint-leading_zero-check'
-
-  # use fork until https://github.com/fiddyspence/puppetlint-variablecase/pull/2
-  # is merged, also ref https://github.com/rodjek/puppet-lint/issues/382
-  gem 'puppet-lint-variable_contains_upcase',
-      :git    => 'https://github.com/rnelson0/puppetlint-variablecase.git',
-      :ref    => '431d216c2c5a99bd6128642eccd9712a68406d64'
+  gem 'puppet-lint-variable_contains_upcase'
   gem 'puppet-lint-version_comparison-check'
   gem 'rspec'
   gem 'rspec-puppet'
