@@ -20,7 +20,7 @@ This converts a puppet hash to YAML string.
     # puppet 3.x uses ZAML which formats YAML output differently than puppet 4.x
     # including not ending the file with a new line
     if Puppet.version.to_f < 4.0
-      return h.to_yaml << "\n"
+      return h.to_yaml.gsub(/^\s{2}/, '') << "\n"
     else
       return h.to_yaml
     end
