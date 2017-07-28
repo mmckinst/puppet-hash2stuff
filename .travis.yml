@@ -4,14 +4,17 @@ bundler_args: --without development system_tests
 before_install: rm Gemfile.lock || true
 matrix:
   include:
-  # test on unsupported, but lightly test versions of ruby
-  # https://docs.puppet.com/guides/platforms.html#ruby-versions
+  # these versions of ruby were somewhat supported up to puppet 4.8, then
+  # deprecated in puppet 4.9. we'll keep testing them for now...
+  #
+  # https://docs.puppet.com/puppet/4.9/release_notes.html#ruby-20-series
+  # https://docs.puppet.com/puppet/4.8/system_requirements.html#ruby
   - rvm: 2.0.0
-    env: PUPPET_GEM_VERSION="~> 4.0"   STRICT_VARIABLES=yes
+    env: PUPPET_GEM_VERSION="~> 4.8.0"   STRICT_VARIABLES=yes
   - rvm: 2.2.0
-    env: PUPPET_GEM_VERSION="~> 4.0"   STRICT_VARIABLES=yes
+    env: PUPPET_GEM_VERSION="~> 4.8.0"   STRICT_VARIABLES=yes
   - rvm: 2.3.0
-    env: PUPPET_GEM_VERSION="~> 4.0"   STRICT_VARIABLES=yes
+    env: PUPPET_GEM_VERSION="~> 4.8.0"   STRICT_VARIABLES=yes
 
   # always test the latest versions of puppet in the 3.x and 4.x lines
   - rvm: 2.1.0
@@ -21,12 +24,6 @@ matrix:
 
   # usual testing matrix of supported ruby+puppet combinations
   # https://docs.puppet.com/guides/platforms.html#ruby-versions
-  - rvm: 1.9.3
-    env: PUPPET_GEM_VERSION="~> 3.2.0"
-  - rvm: 1.9.3
-    env: PUPPET_GEM_VERSION="~> 3.3.0"
-  - rvm: 1.9.3
-    env: PUPPET_GEM_VERSION="~> 3.4.0"
   - rvm: 2.1.0
     env: PUPPET_GEM_VERSION="~> 3.5.0" STRICT_VARIABLES=yes
   - rvm: 2.1.0
@@ -47,6 +44,16 @@ matrix:
     env: PUPPET_GEM_VERSION="~> 4.4.0" STRICT_VARIABLES=yes
   - rvm: 2.1.0
     env: PUPPET_GEM_VERSION="~> 4.5.0" STRICT_VARIABLES=yes
+  - rvm: 2.1.0
+    env: PUPPET_GEM_VERSION="~> 4.6.0" STRICT_VARIABLES=yes
+  - rvm: 2.1.0
+    env: PUPPET_GEM_VERSION="~> 4.7.0" STRICT_VARIABLES=yes
+  - rvm: 2.1.0
+    env: PUPPET_GEM_VERSION="~> 4.8.0" STRICT_VARIABLES=yes
+  - rvm: 2.1.0
+    env: PUPPET_GEM_VERSION="~> 4.9.0" STRICT_VARIABLES=yes
+  - rvm: 2.1.0
+    env: PUPPET_GEM_VERSION="~> 4.10.0" STRICT_VARIABLES=yes
 script: "bundle exec rake validate && bundle exec rake lint && bundle exec rake spec SPEC_OPTS='--format documentation'"
 notifications:
   email: false
