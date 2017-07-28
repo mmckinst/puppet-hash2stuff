@@ -1,7 +1,11 @@
 source 'https://rubygems.org'
 
 group :tests do
-  gem 'puppetlabs_spec_helper'
+  # puppetlabs_spec_helper stopped testing ruby 1.9.3 with 2.3.0. pin to < 2.0.0
+  # if using ruby 1.x for puppet 3.2 through puppet 3.4
+  #
+  # https://github.com/puppetlabs/puppetlabs_spec_helper/commit/4f1c7457b06cb854a9682d602cab055f4bb05bc7
+  gem 'puppetlabs_spec_helper', '~>2.2.0', :require => false if RUBY_VERSION =~ /^1\./
   gem 'puppet-lint', '~>2.0'
   gem 'puppet-lint-unquoted_string-check'
   gem 'puppet-lint-empty_string-check'
