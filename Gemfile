@@ -19,6 +19,10 @@ end
 gem 'json', '~>1.8', :require => false if RUBY_VERSION =~ /^1\./
 gem 'json_pure', '<=2.0.1', :require => false if RUBY_VERSION =~ /^1\./
 
+# public_suffix 1.5.0 dropped ruby < 2.0. pin to 1.4.x if using ruby 1.x for
+# puppet 3.2 through puppet 3.4
+gem 'public_suffix', '~>1.4.0', :require => false if RUBY_VERSION =~ /^1\./
+
 group :development do
   gem "puppet-blacksmith"
 end
