@@ -47,6 +47,16 @@ matrix:
     env: PUPPET_GEM_VERSION="~> 4.4.0" STRICT_VARIABLES=yes
   - rvm: 2.1.0
     env: PUPPET_GEM_VERSION="~> 4.5.0" STRICT_VARIABLES=yes
+  - rvm: 2.1.0
+    env: PUPPET_GEM_VERSION="~> 4.6.0" STRICT_VARIABLES=yes
+  - rvm: 2.1.0
+    env: PUPPET_GEM_VERSION="~> 4.7.0" STRICT_VARIABLES=yes
+  - rvm: 2.1.0
+    env: PUPPET_GEM_VERSION="~> 4.8.0" STRICT_VARIABLES=yes
+  - rvm: 2.1.0
+    env: PUPPET_GEM_VERSION="~> 4.9.0" STRICT_VARIABLES=yes
+  - rvm: 2.1.0
+    env: PUPPET_GEM_VERSION="~> 4.10.0" STRICT_VARIABLES=yes
 script: "bundle exec rake validate && bundle exec rake lint && bundle exec rake spec SPEC_OPTS='--format documentation'"
 notifications:
   email: false
