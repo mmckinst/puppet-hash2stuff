@@ -20,7 +20,7 @@ matrix:
   - rvm: 2.1.0
     env: PUPPET_GEM_VERSION="~> 3.0" STRICT_VARIABLES=yes
   - rvm: 2.1.0
-    env: PUPPET_GEM_VERSION="~> 4.0" STRICT_VARIABLES=yes
+    env: PUPPET_GEM_VERSION="~> 4.0" STRICT_VARIABLES=yes DEPLOY_TO_FORGE=yes
   - rvm: 2.4.0
     env: PUPPET_GEM_VERSION="~> 5.0" STRICT_VARIABLES=yes
 
@@ -61,3 +61,14 @@ matrix:
 script: "bundle exec rake validate && bundle exec rake lint && bundle exec rake spec SPEC_OPTS='--format documentation'"
 notifications:
   email: false
+deploy:
+  provider: puppetforge
+  user: mmckinst
+  password:
+    secure: U95IYVdpILpz3VavlT3YoTcsBe20YkG70AfXtHL526HYcBlpnmsZljsQw1arX0jfiliKhIwsl2FJhG73IBaJ5udy5tlhGmttpJJcga9SMGUIntYz+AEyvPKzClu8Cf7zWop0Rt/lv/51bSr/ICYE2R0yoasL3ScuSqKQRqf9VUULnbIghHJ6dmPQtHQRtJVaHNTWQgb6PXDOnqsjoF5B/yqTafeB+nj/v/9NOXDfcaGpaGmkiVqkZkhtjn1RjFHf5ftrIoMrdPVV3u6cFaNrTEhpFk3EpGLbvqsSyQ3e/5TINi/ni2RpW949/jZCp+AXu7Wi9eoLG72KUNMZUY5PHegu1GKq0bDV5U79sPamDdkAT2YXa+LvNkCZPLmssGe18QYFD/YQiR+ZUIRhvmno3GCXVfqdogi+AbCqVnPJk4gqKbgO9ggHKik9Px/yoS+Ic6JDTOlf535BYYlqpS6R17xTe4BIud1/XZvb6ditt6+D+A9CyosoKVg4AzdPt/zZ3sFzYzMvRAM1TRbHLtePOVztpJ/Y4F/nnMN6CLcC9SEPgCtBgqvjw/VMIs5961/wPHq5TCXngI7XcnMhYYQltgsJXi6gRlw/grgB34Q0Iy9FYSC/i6ek/LrD5xeNQIJRIXndieCBlFlLTjAMqml5LA+6+I4MUOIqmNbsmEeGWvo=
+  on:
+    tags: true
+    # all_branches is required to use tags
+    all_branches: true
+    # Only publish the build marked with "DEPLOY_TO_FORGE"
+    condition: "$DEPLOY_TO_FORGE = yes"
