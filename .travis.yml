@@ -24,12 +24,6 @@ matrix:
 
   # usual testing matrix of supported ruby+puppet combinations
   # https://docs.puppet.com/guides/platforms.html#ruby-versions
-  - rvm: 1.9.3
-    env: PUPPET_GEM_VERSION="~> 3.2.0"
-  - rvm: 1.9.3
-    env: PUPPET_GEM_VERSION="~> 3.3.0"
-  - rvm: 1.9.3
-    env: PUPPET_GEM_VERSION="~> 3.4.0"
   - rvm: 2.1.0
     env: PUPPET_GEM_VERSION="~> 3.5.0" STRICT_VARIABLES=yes
   - rvm: 2.1.0
