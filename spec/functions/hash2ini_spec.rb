@@ -18,7 +18,7 @@ describe 'hash2ini' do
     }
   }
 
-  context 'no custom settings' do
+  context 'default settings' do
     output=<<-EOS
 # THIS FILE IS CONTROLLED BY PUPPET
 
@@ -54,6 +54,28 @@ awesome: true
 logging: DEBUG
 log_location: /var/log/dev.log
 EOS
+    it { is_expected.to run.with_params(example_input, settings).and_return(output) }
+  end
+
+
+  context 'default settings with custom quoting' do
+    settings = {
+      'quote_booleans' => false,
+      'quote_numerics' => false,
+    }
+    output=<<-EOS
+# THIS FILE IS CONTROLLED BY PUPPET
+
+[main]
+logging="INFO"
+limit=314
+awesome=true
+
+[dev]
+logging="DEBUG"
+log_location="/var/log/dev.log"
+EOS
+
     it { is_expected.to run.with_params(example_input, settings).and_return(output) }
   end
 end
