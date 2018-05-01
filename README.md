@@ -167,9 +167,11 @@ probably want
 
 It accepts the following optional parameters passed to it in a hash as the second argument:
 
-* `header`: String you want at the top of the file saying it is controlled by puppet. Default: '# THIS FILE IS CONTROLLED BY PUPPET'
+* `header`: String you want at the top of the file saying it is controlled by puppet. Default: '# THIS FILE IS CONTROLLED BY PUPPET'.
 * `key_val_separator`: String to use between setting name and value (e.g., to determine whether the separator includes whitespace). Default: '='.
-* `quote_char`: Character or string to quote the entire value of the setting. Default: '"'
+* `quote_char`: Character or string to quote the entire value of the setting. Default: '"'.
+* `quote_booleans`: A boolean controlling whether or not to quote boolean values. Default: 'true'.
+* `quote_numerics`: A boolean controlling whether or not to quote numeric values. Default: 'true'.
 
 For example:
 

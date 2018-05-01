@@ -22,6 +22,8 @@ This converts a puppet hash to an INI string.
       'section_suffix'    => ']',
       'key_val_separator' => '=',
       'quote_char'        => '"',
+      "quote_booleans"    => true,
+      "quote_numerics"    => true,
     }
 
     if arguments[1]
@@ -38,7 +40,13 @@ This converts a puppet hash to an INI string.
     h.keys.each do |section|
       ini << "#{settings['section_prefix']}#{section}#{settings['section_suffix']}"
       h[section].each do |k, v|
-        ini << "#{k}#{settings['key_val_separator']}#{settings['quote_char']}#{v}#{settings['quote_char']}"
+        v_is_a_boolean = (v.is_a?(TrueClass) or v.is_a?(FalseClass))
+
+        if (v_is_a_boolean and not settings['quote_booleans']) or (v.is_a?(Numeric) and not settings['quote_numerics'])
+          ini << "#{k}#{settings['key_val_separator']}#{v}"
+        else
+          ini << "#{k}#{settings['key_val_separator']}#{settings['quote_char']}#{v}#{settings['quote_char']}"
+        end
       end
       ini << nil
     end
