@@ -1,6 +1,6 @@
 {
   "name": "mmckinst-hash2stuff",
-  "version": "1.0.2",
+  "version": "1.1.0",
   "author": "mmckinst",
   "summary": "Convert a puppet hash to YAML, JSON, INI file, or key-value.",
   "license": "Apache-2.0",
@@ -37,17 +37,17 @@
     {
       "operatingsystem": "Debian",
       "operatingsystemrelease": [
-        "6",
         "7",
-        "8"
+        "8",
+        "9"
       ]
     },
     {
       "operatingsystem": "Ubuntu",
       "operatingsystemrelease": [
-        "12.04",
         "14.04",
-        "16.04"
+        "16.04",
+        "18.04"
       ]
     }
   ],
