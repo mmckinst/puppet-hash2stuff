@@ -238,6 +238,12 @@ you want to manage bits and pieces of an YAML file, you want
 [augeas](https://docs.puppet.com/guides/augeas.html) with the
 [YAML lens](https://github.com/hercules-team/augeas/blob/master/lenses/yaml.aug).
 
+#### Parameters
+
+It accepts the following optional parameters passed to it in a hash as the second argument:
+
+* `header`: String you want at the top of the file saying it is controlled by puppet. Default: '""'.
+
 For example:
 
 ```puppet
@@ -260,6 +266,44 @@ file {'/etc/config.yaml':
 will produce a file at /etc/config.yaml that looks like:
 
 ```yaml
+---
+domain: example.com
+mysql:
+  hosts:
+  - 192.0.2.2
+  - 192.0.2.4
+  user: root
+  pass: setec-astronomy
+awesome: true
+```
+
+Or you can specify custom settings:
+
+```puppet
+$settings = {
+  'header' => '# THIS FILE IS CONTROLLED BY PUPPET',
+}
+
+$config = {
+  'domain' => 'example.com',
+  'mysql'  => {
+    'hosts' => ['192.0.2.2', '192.0.2.4'],
+    'user'  => 'root',
+    'pass'  => 'setec-astronomy',
+  },
+  'awesome' => true,
+}
+
+file {'/etc/config.yaml':
+  ensure  => 'present',
+  content => hash2yaml($config, $settings)
+}
+```
+
+That will produce a file at /etc/config.yaml that looks like:
+
+```yaml
+# THIS FILE IS CONTROLLED BY PUPPET
 ---
 domain: example.com
 mysql:
