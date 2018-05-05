@@ -229,6 +229,122 @@ RSYNC_IONICE: 3
 PORTS: 53 123 80
 ```
 
+### `hash2properties`
+
+Converts a hash into a Java properties file. *Type*: rvalue.
+
+#### Parameters
+
+It accepts the following optional parameters passed to it in a hash as the second argument:
+
+* `header`: String you want at the top of the file saying it is controlled by puppet. Default: '# THIS FILE IS CONTROLLED BY PUPPET'.
+* `key_val_separator`: String to use between setting name and value (e.g., to determine whether the separator includes whitespace). Default: '='.
+* `quote_char`: Character or string to quote the entire value of the setting. Default: '"'.
+* `list_separator`: Character to separate lists
+
+For example:
+
+```puppet
+$config = {
+  'main' => {
+    'logging' => 'INFO',
+    'limit'   => 314,
+    'awesome' => true,
+    'nested'  => {
+      'sublevel1' => 'value1',
+      'subnested1' => {
+        'node1' => 'leaf1',
+        'node2' => 'leaf2',
+      },
+      'list' => [
+        'item1',
+        'item2',
+      ]
+    }
+  },
+  'dev' => {
+    'logging'      => 'DEBUG',
+    'log_location' => '/var/log/dev.log',
+  }
+}
+
+
+file {'/etc/config.properties':
+  ensure  => 'present',
+  content => hash2properties($config)
+}
+```
+
+will produce a file at /etc/config.properties that looks like:
+
+```shell
+# THIS FILE IS CONTROLLED BY PUPPET
+
+dev.log_location=/var/log/dev.log
+dev.logging=DEBUG
+main.awesome=true
+main.limit=314
+main.logging=INFO
+main.nested.list=item1,item2
+main.nested.sublevel1=value1
+main.nested.subnested1.node1=leaf1
+main.nested.subnested1.node2=leaf2
+```
+
+Or you can specify custom settings:
+
+```puppet
+settings = {
+  'header'            => '# THIS FILE IS CONTROLLED BY /dev/random',
+  'key_val_separator' => ': ',
+  'quote_char'        => '"',
+}
+
+$config = {
+  'main' => {
+    'logging' => 'INFO',
+    'limit'   => 314,
+    'awesome' => true,
+    'nested'  => {
+      'sublevel1' => 'value1',
+      'subnested1' => {
+        'node1' => 'leaf1',
+        'node2' => 'leaf2',
+      },
+      'list' => [
+        'item1',
+        'item2',
+      ]
+    }
+  },
+  'dev' => {
+    'logging'      => 'DEBUG',
+    'log_location' => '/var/log/dev.log',
+  }
+}
+
+file {'/etc/config.properties':
+  ensure  => 'present',
+  content => hash2properites($config, $settings)
+}
+```
+
+will produce a file at /etc/config.properties that looks like:
+
+```
+# THIS FILE IS CONTROLLED BY /dev/random
+
+dev.log_location: "/var/log/dev.log"
+dev.logging: "DEBUG"
+main.awesome: "true"
+main.limit: "314"
+main.logging: "INFO"
+main.nested.list: "item1,item2"
+main.nested.sublevel1: "value1"
+main.nested.subnested1.node1: "leaf1"
+main.nested.subnested1.node2: "leaf2"
+```
+
 ### `hash2yaml`
 
 Converts a hash into a YAML string. *Type*: rvalue.

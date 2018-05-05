@@ -1,3 +1,6 @@
+## 1.2.0 (2018-05-04)
+- Add hash2properties function
+
 ## 1.1.0 (2018-04-30)
 - Add header setting to hash2yaml
 - Allow hash2ini to optionally not put quotes around booleans and numeric values
