@@ -1,5 +1,6 @@
 [![Build Status](https://travis-ci.org/mmckinst/puppet-hash2stuff.svg?branch=master)](https://travis-ci.org/mmckinst/puppet-hash2stuff)
-[![Puppet Forge](https://img.shields.io/puppetforge/v/mmckinst/hash2stuff.svg?maxAge=2592000)](https://forge.puppet.com/mmckinst/hash2stuff)
+![Puppet Forge version](https://img.shields.io/puppetforge/v/mmckinst/hash2stuff.svg)
+![Puppet Forge downloads](https://img.shields.io/puppetforge/dt/mmckinst/hash2stuff.svg)
 
 ## Overview
 
@@ -110,6 +111,11 @@ date.timezone = "America/Detroit"
 ```
 
 ### `hash2json`
+
+This function overlaps with
+[to_json](https://forge.puppet.com/puppetlabs/stdlib#to_json) and
+[to_json_pretty](https://forge.puppet.com/puppetlabs/stdlib#to_json_pretty) from
+[puppetlab's stdlib](https://forge.puppet.com/puppetlabs/stdlib).
 
 Converts a hash into a JSON string. *Type*: rvalue.
 
@@ -346,6 +352,11 @@ main.nested.subnested1.node2: "leaf2"
 ```
 
 ### `hash2yaml`
+
+This function overlaps with
+[to_yaml](https://forge.puppet.com/puppetlabs/stdlib#to_yaml) from [puppetlab's
+stdlib](https://forge.puppet.com/puppetlabs/stdlib). This function does provide
+a header option to give a string saying the file is controlled by puppet.
 
 Converts a hash into a YAML string. *Type*: rvalue.
 

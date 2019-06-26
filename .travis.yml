@@ -16,42 +16,16 @@ matrix:
   - rvm: 2.3.0
     env: PUPPET_GEM_VERSION="~> 4.8.0" STRICT_VARIABLES=yes
 
-  # always test the latest versions of puppet in the 3.x, 4.x, and 5.x lines
+  # always test the latest versions of puppet in the 3.x, 4.x, 5.x, 6.x lines
   - rvm: 2.1.0
     env: PUPPET_GEM_VERSION="~> 3.0" STRICT_VARIABLES=yes
   - rvm: 2.1.0
     env: PUPPET_GEM_VERSION="~> 4.0" STRICT_VARIABLES=yes DEPLOY_TO_FORGE=yes
   - rvm: 2.4.0
     env: PUPPET_GEM_VERSION="~> 5.0" STRICT_VARIABLES=yes
+  - rvm: 2.5.0
+    env: PUPPET_GEM_VERSION="~> 6.0" STRICT_VARIABLES=yes
 
-  # usual testing matrix of supported ruby+puppet combinations
-  # https://docs.puppet.com/puppet/latest/system_requirements.html#prerequisites
-  - rvm: 2.1.0
-    env: PUPPET_GEM_VERSION="~> 3.5.0" STRICT_VARIABLES=yes
-  - rvm: 2.1.0
-    env: PUPPET_GEM_VERSION="~> 3.6.0" STRICT_VARIABLES=yes
-  - rvm: 2.1.0
-    env: PUPPET_GEM_VERSION="~> 3.7.0" STRICT_VARIABLES=yes
-  - rvm: 2.1.0
-    env: PUPPET_GEM_VERSION="~> 3.8.0" STRICT_VARIABLES=yes
-  - rvm: 2.1.0
-    env: PUPPET_GEM_VERSION="~> 4.3.0" STRICT_VARIABLES=yes
-  - rvm: 2.1.0
-    env: PUPPET_GEM_VERSION="~> 4.4.0" STRICT_VARIABLES=yes
-  - rvm: 2.1.0
-    env: PUPPET_GEM_VERSION="~> 4.5.0" STRICT_VARIABLES=yes
-  - rvm: 2.1.0
-    env: PUPPET_GEM_VERSION="~> 4.6.0" STRICT_VARIABLES=yes
-  - rvm: 2.1.0
-    env: PUPPET_GEM_VERSION="~> 4.7.0" STRICT_VARIABLES=yes
-  - rvm: 2.1.0
-    env: PUPPET_GEM_VERSION="~> 4.8.0" STRICT_VARIABLES=yes
-  - rvm: 2.1.0
-    env: PUPPET_GEM_VERSION="~> 4.9.0" STRICT_VARIABLES=yes
-  - rvm: 2.1.0
-    env: PUPPET_GEM_VERSION="~> 4.10.0" STRICT_VARIABLES=yes
-  - rvm: 2.4.0
-    env: PUPPET_GEM_VERSION="~> 5.0.0" STRICT_VARIABLES=yes
 script: "bundle exec rake validate && bundle exec rake lint && bundle exec rake spec SPEC_OPTS='--format documentation'"
 notifications:
   email: false
