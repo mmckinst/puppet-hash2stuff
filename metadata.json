@@ -1,6 +1,6 @@
 {
   "name": "mmckinst-hash2stuff",
-  "version": "1.2.0",
+  "version": "1.2.1",
   "author": "mmckinst",
   "summary": "Convert a puppet hash to YAML, JSON, INI file, or key-value.",
   "license": "Apache-2.0",

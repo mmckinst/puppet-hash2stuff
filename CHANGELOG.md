@@ -1,3 +1,10 @@
+## 1.2.1 (2019-06-25)
+- Document overlaps with stdlib
+- Test on puppet 6
+- Simplify testing matrix
+- Add support for CentOS/RHEL 8
+- Drop support for Debian 7
+
 ## 1.2.0 (2018-05-04)
 - Add hash2properties function
 
