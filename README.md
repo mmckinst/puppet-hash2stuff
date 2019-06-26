@@ -1,6 +1,6 @@
 [![Build Status](https://travis-ci.org/mmckinst/puppet-hash2stuff.svg?branch=master)](https://travis-ci.org/mmckinst/puppet-hash2stuff)
-![Puppet Forge version](https://img.shields.io/puppetforge/v/mmckinst/hash2stuff.svg)
-![Puppet Forge downloads](https://img.shields.io/puppetforge/dt/mmckinst/hash2stuff.svg)
+[![Puppet Forge version](https://img.shields.io/puppetforge/v/mmckinst/hash2stuff.svg)](https://forge.puppet.com/mmckinst/hash2stuff)
+[![Puppet Forge downloads](https://img.shields.io/puppetforge/dt/mmckinst/hash2stuff.svg)](https://forge.puppet.com/mmckinst/hash2stuff)
 
 ## Overview
 
