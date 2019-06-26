@@ -111,6 +111,11 @@ date.timezone = "America/Detroit"
 
 ### `hash2json`
 
+This function overlaps with
+[to_json](https://forge.puppet.com/puppetlabs/stdlib#to_json) and
+[to_json_pretty](https://forge.puppet.com/puppetlabs/stdlib#to_json_pretty) from
+[puppetlab's stdlib](https://forge.puppet.com/puppetlabs/stdlib).
+
 Converts a hash into a JSON string. *Type*: rvalue.
 
 It is used when you want to overwrite an entire file with a hash of settings. If
@@ -346,6 +351,11 @@ main.nested.subnested1.node2: "leaf2"
 ```
 
 ### `hash2yaml`
+
+This function overlaps with
+[to_yaml](https://forge.puppet.com/puppetlabs/stdlib#to_yaml) from [puppetlab's
+stdlib](https://forge.puppet.com/puppetlabs/stdlib). This function does provide
+a header option to give a string saying the file is controlled by puppet.
 
 Converts a hash into a YAML string. *Type*: rvalue.
 
