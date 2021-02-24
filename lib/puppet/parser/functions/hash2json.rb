@@ -1,8 +1,8 @@
 module Puppet::Parser::Functions
-  newfunction(:hash2json, :type => :rvalue, :doc => <<-EOS
+  newfunction(:hash2json, type: :rvalue, doc: <<-EOS
 This converts a puppet hash to JSON string.
     EOS
-  ) do |arguments|
+             ) do |arguments|
     require 'json'
 
     if arguments.size != 1

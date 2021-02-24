@@ -1,10 +1,10 @@
 module Puppet::Parser::Functions
-  newfunction(:hash2ini, :type => :rvalue, :doc => <<-EOS
+  newfunction(:hash2ini, type: :rvalue, doc: <<-EOS
 This converts a puppet hash to an INI string.
     EOS
-  ) do |arguments|
+             ) do |arguments|
 
-    if arguments.size < 1
+    if arguments.empty?
       raise(Puppet::ParseError, 'hash2ini(): requires at least one argument')
     end
     if arguments.size >= 3
@@ -22,8 +22,8 @@ This converts a puppet hash to an INI string.
       'section_suffix'    => ']',
       'key_val_separator' => '=',
       'quote_char'        => '"',
-      "quote_booleans"    => true,
-      "quote_numerics"    => true,
+      'quote_booleans'    => true,
+      'quote_numerics'    => true,
     }
 
     if arguments[1]
@@ -33,16 +33,13 @@ This converts a puppet hash to an INI string.
       settings.merge!(arguments[1])
     end
 
-
-
     ini = []
     ini << settings['header'] << nil
     h.keys.each do |section|
       ini << "#{settings['section_prefix']}#{section}#{settings['section_suffix']}"
       h[section].each do |k, v|
-        v_is_a_boolean = (v.is_a?(TrueClass) or v.is_a?(FalseClass))
-
-        if (v_is_a_boolean and not settings['quote_booleans']) or (v.is_a?(Numeric) and not settings['quote_numerics'])
+        v_is_a_boolean = (v.is_a?(TrueClass) || v.is_a?(FalseClass))
+        if (v_is_a_boolean && !settings['quote_booleans']) || (v.is_a?(Numeric) && !settings['quote_numerics'])
           ini << "#{k}#{settings['key_val_separator']}#{v}"
         else
           ini << "#{k}#{settings['key_val_separator']}#{settings['quote_char']}#{v}#{settings['quote_char']}"

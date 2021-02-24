@@ -1,10 +1,10 @@
 module Puppet::Parser::Functions
-  newfunction(:hash2kv, :type => :rvalue, :doc => <<-EOS
+  newfunction(:hash2kv, type: :rvalue, doc: <<-EOS
 This converts a puppet hash to an key-value string.
     EOS
-  ) do |arguments|
+             ) do |arguments|
 
-    if arguments.size < 1
+    if arguments.empty?
       raise(Puppet::ParseError, 'hash2kv(): requires at least one argument')
     end
     if arguments.size >= 3
@@ -29,11 +29,9 @@ This converts a puppet hash to an key-value string.
       settings.merge!(arguments[1])
     end
 
-
-
     kv = []
     kv << settings['header'] << nil
-    h.each do |k,v|
+    h.each do |k, v|
       kv << "#{k}#{settings['key_val_separator']}#{settings['quote_char']}#{v}#{settings['quote_char']}"
     end
     kv << nil

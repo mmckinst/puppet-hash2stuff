@@ -1,11 +1,11 @@
 module Puppet::Parser::Functions
-  newfunction(:hash2yaml, :type => :rvalue, :doc => <<-EOS
+  newfunction(:hash2yaml, type: :rvalue, doc: <<-EOS
 This converts a puppet hash to YAML string.
     EOS
-  ) do |arguments|
+             ) do |arguments|
     require 'yaml'
 
-    if arguments.size < 1
+    if arguments.empty?
       raise(Puppet::ParseError, 'hash2yaml(): requires at least one argument')
     end
     if arguments.size >= 3
@@ -34,11 +34,11 @@ This converts a puppet hash to YAML string.
     #
     # puppet 3.x uses ZAML which formats YAML output differently than puppet 4.x
     # including not ending the file with a new line
-    if Puppet.version.to_f < 4.0
-      output = h.to_yaml << "\n"
-    else
-      output = h.to_yaml
-    end
+    output = if Puppet.version.to_f < 4.0
+               h.to_yaml << "\n"
+             else
+               h.to_yaml
+             end
 
     if settings['header'].to_s.empty?
       return output

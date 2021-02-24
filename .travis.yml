@@ -1,42 +1,49 @@
 ---
+os: linux
+dist: xenial
 language: ruby
-bundler_args: --without development system_tests
-before_install: rm Gemfile.lock || true
-matrix:
+cache: bundler
+before_install:
+  - bundle -v
+  - rm -f Gemfile.lock
+  - "# Update system gems if requested. This is useful to temporarily workaround troubles in the test runner"
+  - "# See https://github.com/puppetlabs/pdk-templates/commit/705154d5c437796b821691b707156e1b056d244f for an example of how this was used"
+  - "# Ignore exit code of SIGPIPE'd yes to not fail with shell's pipefail set"
+  - '[ -z "$RUBYGEMS_VERSION" ] || (yes || true) | gem update --system $RUBYGEMS_VERSION'
+  - gem --version
+  - bundle -v
+script:
+  - 'bundle exec rake $CHECK'
+bundler_args: --without system_tests
+rvm:
+  - 2.5.7
+stages:
+  - static
+  - spec
+  - acceptance
+  -
+    if: tag =~ ^v\d
+    name: deploy
+jobs:
+  fast_finish: true
   include:
-  # these versions of ruby were somewhat supported up to puppet 4.8, then
-  # deprecated in puppet 4.9. we'll keep testing them for now...
-  #
-  # https://docs.puppet.com/puppet/4.9/release_notes.html#ruby-20-series
-  # https://docs.puppet.com/puppet/4.8/system_requirements.html#ruby
-  - rvm: 2.0.0
-    env: PUPPET_GEM_VERSION="~> 4.8.0" STRICT_VARIABLES=yes
-  - rvm: 2.2.0
-    env: PUPPET_GEM_VERSION="~> 4.8.0" STRICT_VARIABLES=yes
-  - rvm: 2.3.0
-    env: PUPPET_GEM_VERSION="~> 4.8.0" STRICT_VARIABLES=yes
-
-  # always test the latest versions of puppet in the 3.x, 4.x, 5.x, 6.x lines
-  - rvm: 2.1.0
-    env: PUPPET_GEM_VERSION="~> 3.0" STRICT_VARIABLES=yes
-  - rvm: 2.1.0
-    env: PUPPET_GEM_VERSION="~> 4.0" STRICT_VARIABLES=yes DEPLOY_TO_FORGE=yes
-  - rvm: 2.4.0
-    env: PUPPET_GEM_VERSION="~> 5.0" STRICT_VARIABLES=yes
-  - rvm: 2.5.0
-    env: PUPPET_GEM_VERSION="~> 6.0" STRICT_VARIABLES=yes
-
-script: "bundle exec rake validate && bundle exec rake lint && bundle exec rake spec SPEC_OPTS='--format documentation'"
+    -
+      env: CHECK="check:symlinks check:git_ignore check:dot_underscore check:test_file rubocop syntax lint metadata_lint"
+      stage: static
+    -
+      env: PUPPET_GEM_VERSION="~> 5.0" CHECK=parallel_spec
+      rvm: 2.4.5
+      stage: spec
+    -
+      env: PUPPET_GEM_VERSION="~> 6.0" CHECK=parallel_spec
+      rvm: 2.5.7
+      stage: spec
+    -
+      env: DEPLOY_TO_FORGE=yes
+      stage: deploy
+branches:
+  only:
+    - master
+    - /^v\d/
 notifications:
   email: false
-deploy:
-  provider: puppetforge
-  user: mmckinst
-  password:
-    secure: U95IYVdpILpz3VavlT3YoTcsBe20YkG70AfXtHL526HYcBlpnmsZljsQw1arX0jfiliKhIwsl2FJhG73IBaJ5udy5tlhGmttpJJcga9SMGUIntYz+AEyvPKzClu8Cf7zWop0Rt/lv/51bSr/ICYE2R0yoasL3ScuSqKQRqf9VUULnbIghHJ6dmPQtHQRtJVaHNTWQgb6PXDOnqsjoF5B/yqTafeB+nj/v/9NOXDfcaGpaGmkiVqkZkhtjn1RjFHf5ftrIoMrdPVV3u6cFaNrTEhpFk3EpGLbvqsSyQ3e/5TINi/ni2RpW949/jZCp+AXu7Wi9eoLG72KUNMZUY5PHegu1GKq0bDV5U79sPamDdkAT2YXa+LvNkCZPLmssGe18QYFD/YQiR+ZUIRhvmno3GCXVfqdogi+AbCqVnPJk4gqKbgO9ggHKik9Px/yoS+Ic6JDTOlf535BYYlqpS6R17xTe4BIud1/XZvb6ditt6+D+A9CyosoKVg4AzdPt/zZ3sFzYzMvRAM1TRbHLtePOVztpJ/Y4F/nnMN6CLcC9SEPgCtBgqvjw/VMIs5961/wPHq5TCXngI7XcnMhYYQltgsJXi6gRlw/grgB34Q0Iy9FYSC/i6ek/LrD5xeNQIJRIXndieCBlFlLTjAMqml5LA+6+I4MUOIqmNbsmEeGWvo=
-  on:
-    tags: true
-    # all_branches is required to use tags
-    all_branches: true
-    # Only publish the build marked with "DEPLOY_TO_FORGE"
-    condition: "$DEPLOY_TO_FORGE = yes"
