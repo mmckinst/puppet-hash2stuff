@@ -40,10 +40,7 @@ This converts a puppet hash to YAML string.
                h.to_yaml
              end
 
-    if settings['header'].to_s.empty?
-      return output
-    else
-      return "#{settings['header']}\n#{output}"
-    end
+    return output if settings['header'].to_s.empty?
+    return "#{settings['header']}\n#{output}"
   end
 end

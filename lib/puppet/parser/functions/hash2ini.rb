@@ -39,11 +39,11 @@ This converts a puppet hash to an INI string.
       ini << "#{settings['section_prefix']}#{section}#{settings['section_suffix']}"
       h[section].each do |k, v|
         v_is_a_boolean = (v.is_a?(TrueClass) || v.is_a?(FalseClass))
-        if (v_is_a_boolean && !settings['quote_booleans']) || (v.is_a?(Numeric) && !settings['quote_numerics'])
-          ini << "#{k}#{settings['key_val_separator']}#{v}"
-        else
-          ini << "#{k}#{settings['key_val_separator']}#{settings['quote_char']}#{v}#{settings['quote_char']}"
-        end
+        ini << if (v_is_a_boolean && !settings['quote_booleans']) || (v.is_a?(Numeric) && !settings['quote_numerics'])
+                 "#{k}#{settings['key_val_separator']}#{v}"
+               else
+                 "#{k}#{settings['key_val_separator']}#{settings['quote_char']}#{v}#{settings['quote_char']}"
+               end
       end
       ini << nil
     end
