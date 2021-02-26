@@ -7,7 +7,7 @@
 #   Hash representation of the INI file, to include section names and key/value pairs
 #
 # @parameter options
-#   Hash of optional values to pass to the "hash2ini" function.  See function for details.
+#   Hash of optional values to pass to the "hash2ini" function.  See the function for details.
 #
 # @example
 #   hash2stuff::hash2ini { 'namevar':
