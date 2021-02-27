@@ -1,6 +1,6 @@
 {
   "name": "mmckinst-hash2stuff",
-  "version": "1.2.1",
+  "version": "1.3.0",
   "author": "mmckinst",
   "summary": "Convert a puppet hash to YAML, JSON, INI file, or key-value.",
   "license": "Apache-2.0",
@@ -8,47 +8,50 @@
   "project_page": "https://github.com/mmckinst/puppet-hash2stuff",
   "issues_url": "https://github.com/mmckinst/puppet-hash2stuff/issues",
   "dependencies": [
-
+    {
+      "name": "puppetlabs/stdlib",
+      "version_requirement": ">= 4.1.0 <= 7.0.0"
+    }
   ],
   "operatingsystem_support": [
     {
-      "operatingsystem": "RedHat",
-      "operatingsystemrelease": [
-        "5",
-        "6",
-        "7",
-        "8"
-      ]
+      "operatingsystem": "CentOS"
     },
     {
-      "operatingsystem": "CentOS",
-      "operatingsystemrelease": [
-        "5",
-        "6",
-        "7",
-        "8"
-      ]
+      "operatingsystem": "OracleLinux"
     },
     {
-      "operatingsystem": "Debian",
-      "operatingsystemrelease": [
-        "8",
-        "9"
-      ]
+      "operatingsystem": "RedHat"
     },
     {
-      "operatingsystem": "Ubuntu",
-      "operatingsystemrelease": [
-        "14.04",
-        "16.04",
-        "18.04"
-      ]
+      "operatingsystem": "Scientific"
+    },
+    {
+      "operatingsystem": "Debian"
+    },
+    {
+      "operatingsystem": "Ubuntu"
+    },
+    {
+      "operatingsystem": "windows"
+    },
+    {
+      "operatingsystem": "Solaris"
+    },
+    {
+      "operatingsystem": "SLES"
+    },
+    {
+      "operatingsystem": "Darwin"
+    },
+    {
+      "operatingsystem": "Fedora"
     }
   ],
   "requirements": [
     {
       "name": "puppet",
-      "version_requirement": ">= 3.5.0 < 7.0.0"
+      "version_requirement": ">= 3.5.0 < 8.0.0"
     }
   ],
   "tags": [
