@@ -13,6 +13,11 @@ to use something like
 
 ## Usage
 
+The value of the module is in the custom functions that convert the input hash to the
+specified output format.  Defined types have been added to implement each function so
+they can be used from hiera without writing more puppet manifests.  See the reference
+for details on the defined types.  The core functions are documented in detail here.
+
 ### `hash2ini`
 
 Converts a hash into an
