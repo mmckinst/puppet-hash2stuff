@@ -2,9 +2,9 @@ require 'spec_helper'
 
 describe 'hash2properties' do
   it { is_expected.not_to eq(nil) }
-  it { is_expected.to run.with_params.and_raise_error(Puppet::ParseError, %r{requires at least one argument}) }
-  it { is_expected.to run.with_params({}, {}, {}).and_raise_error(Puppet::ParseError, %r{too many arguments}) }
-  it { is_expected.to run.with_params('some string').and_raise_error(Puppet::ParseError, %r{requires a hash as argument}) }
+  it { is_expected.to run.with_params.and_raise_error(ArgumentError, %r{'hash2properties' expects between 1 and 2 arguments, got none}) }
+  it { is_expected.to run.with_params({}, {}, {}).and_raise_error(ArgumentError, %r{'hash2properties' expects between 1 and 2 arguments, got 3}) }
+  it { is_expected.to run.with_params('some string').and_raise_error(ArgumentError, %r{'hash2properties' parameter 'input' expects a Hash value, got String}) }
 
   example_input = {
     'main' => {

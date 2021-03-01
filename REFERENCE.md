@@ -6,7 +6,7 @@
 
 ### Classes
 
-* [`hash2stuff`](#hash2stuff): A short summary of the purpose of this class
+* [`hash2stuff`](#hash2stuff): Provide an entry point for module defined types.  The class does nothing without hiera data
 
 ### Defined types
 
@@ -28,15 +28,7 @@
 
 ### `hash2stuff`
 
-A description of what this class does
-
-#### Examples
-
-##### 
-
-```puppet
-include hash2stuff
-```
+Provide an entry point for module defined types.  The class does nothing without hiera data
 
 #### Parameters
 
@@ -116,19 +108,19 @@ The following parameters are available in the `hash2stuff::hash2ini` defined typ
 
 Data type: `Hash`
 
-
+Properties of the target file resource.  Accepts and requires the same parameters of a puppet "file"
 
 ##### `data_hash`
 
 Data type: `Hash`
 
-
+Hash representation of the INI file, to include section names and key/value pairs
 
 ##### `options`
 
 Data type: `Hash`
 
-
+Hash of optional values to pass to the "hash2ini" function.  See the function for details.
 
 Default value: `{}`
 
@@ -164,13 +156,13 @@ The following parameters are available in the `hash2stuff::hash2json` defined ty
 
 Data type: `Hash`
 
-
+Properties of the target file resource.  Accepts and requires the same parameters of a puppet "file"
 
 ##### `data_hash`
 
 Data type: `Hash`
 
-
+Hash representation of the JSON file.
 
 ### `hash2stuff::hash2kv`
 
@@ -204,19 +196,19 @@ The following parameters are available in the `hash2stuff::hash2kv` defined type
 
 Data type: `Hash`
 
-
+Properties of the target file resource.  Accepts and requires the same parameters of a puppet "file"
 
 ##### `data_hash`
 
 Data type: `Hash`
 
-
+Hash representation of the key-value/shellvar file.
 
 ##### `options`
 
 Data type: `Hash`
 
-
+Hash of optional values to pass to the "hash2kv" function.  See function for details.
 
 Default value: `{}`
 
@@ -252,19 +244,19 @@ The following parameters are available in the `hash2stuff::hash2properties` defi
 
 Data type: `Hash`
 
-
+Properties of the target file resource.  Accepts and requires the same parameters of a puppet "file"
 
 ##### `data_hash`
 
 Data type: `Hash`
 
-
+Hash representation of the properties file.
 
 ##### `options`
 
 Data type: `Hash`
 
-
+Hash of optional values to pass to the "hash2properties" function.  See function for details.
 
 Default value: `{}`
 
@@ -300,19 +292,19 @@ The following parameters are available in the `hash2stuff::hash2yaml` defined ty
 
 Data type: `Hash`
 
-
+Properties of the target file resource.  Accepts and requires the same parameters of a puppet "file"
 
 ##### `data_hash`
 
 Data type: `Hash`
 
-
+Hash representation of the YAML file.
 
 ##### `options`
 
 Data type: `Hash`
 
-
+Hash of optional values to pass to the "hash2yaml" function.  See function for details.
 
 Default value: `{}`
 

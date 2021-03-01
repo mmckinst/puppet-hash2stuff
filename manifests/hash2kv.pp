@@ -1,12 +1,13 @@
-# @summary Defined type provides an implementation of the hash2kv function, creating a key-value/shellvar file from the input hash
+# @summary
+#   Defined type provides an implementation of the hash2kv function, creating a key-value/shellvar file from the input hash
 #
-# @parameter file_props
-#  Properties of the target file resource.  Accepts and requires the same parameters of a puppet "file"
+# @param file_props
+#   Properties of the target file resource.  Accepts and requires the same parameters of a puppet "file"
 #  
-# @parameter data_hash
+# @param data_hash
 #   Hash representation of the key-value/shellvar file.
 #
-# @parameter options
+# @param options
 #   Hash of optional values to pass to the "hash2kv" function.  See function for details.
 #
 # @example

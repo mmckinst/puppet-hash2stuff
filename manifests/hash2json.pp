@@ -1,9 +1,10 @@
-# @summary Defined type provides an implementation of the hash2json function, creating a JSON file from the input hash
+# @summary
+#   Defined type provides an implementation of the hash2json function, creating a JSON file from the input hash
 #
-# @parameter file_props
-#  Properties of the target file resource.  Accepts and requires the same parameters of a puppet "file"
+# @param file_props
+#   Properties of the target file resource.  Accepts and requires the same parameters of a puppet "file"
 #  
-# @parameter data_hash
+# @param data_hash
 #   Hash representation of the JSON file.
 #
 # @example

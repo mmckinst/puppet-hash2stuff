@@ -1,9 +1,5 @@
-# @summary A short summary of the purpose of this class
+# @summary Provide an entry point for module defined types.  The class does nothing without hiera data
 #
-# A description of what this class does
-#
-# @example
-#   include hash2stuff
 class hash2stuff  (
   Hash $hash2ini = {},
   Hash $hash2json = {},

@@ -1,22 +1,16 @@
-module Puppet::Parser::Functions
-  newfunction(:hash2properties, type: :rvalue, doc: <<-EOS
-This converts a puppet hash to an properties string.
-    EOS
-             ) do |arguments|
+# @summary Converts a puppet hash to Java properties file string.
+Puppet::Functions.create_function(:hash2properties) do
+  # @param input The hash to be converted to properties
+  # @param options A hash of options to control properties file format
+  # @return [String] A properties formatted string
+  # @example Call the function with the $input hash
+  #   hash2properties($input)
+  dispatch :properties do
+    param 'Hash', :input
+    optional_param 'Hash', :options
+  end
 
-    if arguments.empty?
-      raise(Puppet::ParseError, 'hash2properties(): requires at least one argument')
-    end
-    if arguments.size >= 3
-      raise(Puppet::ParseError, 'hash2properties(): too many arguments')
-    end
-    unless arguments[0].is_a?(Hash)
-      arg_class = arguments[0].class
-      raise(Puppet::ParseError, "hash2properties(): requires a hash as argument (received #{arg_class})")
-    end
-
-    from_hash = arguments[0]
-
+  def properties(input, options = {})
     settings = {
       'header'            => '# THIS FILE IS CONTROLLED BY PUPPET',
       'key_val_separator' => '=',
@@ -24,18 +18,10 @@ This converts a puppet hash to an properties string.
       'list_separator'    => ',',
     }
 
-    if arguments[1]
-      unless arguments[1].is_a?(Hash)
-        arg_class = arguments[1].class
-        raise(Puppet::ParseError, "hash2properties(): Requires a hash as argument (received #{arg_class})")
-      end
-      settings.merge!(arguments[1])
-    end
+    settings.merge!(options)
 
     properties_str = []
-
-    key_hashes = from_hash.to_a
-    # puts "Key hashes: ", String(key_hashes)
+    key_hashes = input.to_a
     properties = {}
     list_separator = settings['list_separator']
     until key_hashes.empty?
@@ -63,6 +49,6 @@ This converts a puppet hash to an properties string.
     properties_str.insert(0, settings['header'], '')
     properties_str << ''
 
-    return properties_str.join("\n")
+    properties_str.join("\n")
   end
 end
