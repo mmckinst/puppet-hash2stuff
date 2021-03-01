@@ -1,3 +1,12 @@
+## 1.3.0 (2021-02-28) - Updates contributed by southalc
+- Converted to PDK, linted, validated
+- Add support for Puppet 7
+- Refactored legacy 3.x functions to 4.x API
+- Updated unit tests as needed for changes
+- Documentation using puppet strings
+- Added defined types to complement the respective functions for use from hiera
+- Support all releases of puppet supported operating system
+
 ## 1.2.1 (2019-06-25)
 - Document overlaps with stdlib
 - Test on puppet 6

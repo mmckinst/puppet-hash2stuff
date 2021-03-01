@@ -2,9 +2,9 @@ require 'spec_helper'
 
 describe 'hash2kv' do
   it { is_expected.not_to eq(nil) }
-  it { is_expected.to run.with_params().and_raise_error(Puppet::ParseError, /requires at least one argument/) }
-  it { is_expected.to run.with_params({}, {}, {}).and_raise_error(Puppet::ParseError, /too many arguments/) }
-  it { is_expected.to run.with_params('some string').and_raise_error(Puppet::ParseError, /requires a hash as argument/) }
+  it { is_expected.to run.with_params.and_raise_error(ArgumentError, %r{'hash2kv' expects between 1 and 2 arguments, got none}) }
+  it { is_expected.to run.with_params({}, {}, {}).and_raise_error(ArgumentError, %r{'hash2kv' expects between 1 and 2 arguments, got 3}) }
+  it { is_expected.to run.with_params('some string').and_raise_error(ArgumentError, %r{'hash2kv' parameter 'input' expects a Hash value, got String}) }
 
   example_input = {
     'HOSTNAME'     => 'foo.example.com',
@@ -13,7 +13,7 @@ describe 'hash2kv' do
   }
 
   context 'no custom settings' do
-    output=<<-EOS
+    output = <<-EOS
 # THIS FILE IS CONTROLLED BY PUPPET
 
 HOSTNAME="foo.example.com"
@@ -28,9 +28,9 @@ EOS
     settings = {
       'header'            => '; THIS FILE IS CONTROLLED BY /dev/random',
       'key_val_separator' => ': ',
-      'quote_char'        => "",
+      'quote_char'        => '',
     }
-    output=<<-EOS
+    output = <<-EOS
 ; THIS FILE IS CONTROLLED BY /dev/random
 
 HOSTNAME: foo.example.com
